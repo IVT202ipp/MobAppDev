@@ -5,7 +5,7 @@ function App() {
   const [items, setitems] = React.useState([]);
 
   const fetchPosts = () => {
-    fetch('https://dummyjson.com/products')
+    fetch('https://dummyjson.com/products/category/smartphones')
       .then(res => res.json())
       .then(({ products }) => {
         setitems(products);
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   desc: {
     flex: 1,
     justifyContent: 'center',
+    width: 250,
   },
   
 });
