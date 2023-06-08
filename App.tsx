@@ -22,8 +22,10 @@ function App() {
     return (
       <View style={styles.container}>
         <Image source={{ uri: img }} style={styles.image} />
-        <Text>{title}</Text>
-        <Text>{desc}</Text>
+        <View>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.desc}>{desc}</Text>
+        </View>      
       </View>
     );
   };
@@ -41,14 +43,24 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 8,
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: 'black',
   },
   image: {
     width: 100,
     height: 100,
     marginRight: 12,
   },
+  title: {
+    fontSize: 17,
+    fontWeight: 'bold',
+  },
+  desc: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  
 });
 
 export default App;
