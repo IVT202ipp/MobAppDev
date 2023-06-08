@@ -12,16 +12,17 @@ function App() {
       })
       .catch(err => {
         console.log(err);
-        Alert.alert('Error', 'Unable to fetch data');
+        Alert.alert('Error', 'Unable data');
       });
   };
 
   React.useEffect(fetchPosts, []);
 
-  const Post = ({ title }: { title: string }) => {
+  const Post = ({ title, desc }: { title: any, desc: any }) => {
     return (
       <View>
         <Text>{title}</Text>
+        <Text>{desc}</Text>
       </View>
     );
   };
@@ -30,7 +31,7 @@ function App() {
     <View>
       <FlatList
         data={items}
-        renderItem={({ item }) => <Post title={item.title} />}
+        renderItem={({ item }) => <Post title={item.title} desc={item.description} />}
       />
     </View>
   );
