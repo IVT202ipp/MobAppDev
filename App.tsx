@@ -1,11 +1,18 @@
 import React from 'react';
-import { View, Text, Alert, FlatList, StyleSheet, Image } from 'react-native';
+import { View, Alert, FlatList, StyleSheet, Image } from 'react-native';
+import { Post } from './components/Post';
+
+interface Product {
+  title: string
+  description: string
+  thumbnail: string
+}
 
 function App() {
-  const [items, setitems] = React.useState([]);
+  const [items, setitems] = React.useState<Product[]>([]);
 
   const fetchPosts = () => {
-    fetch('https://dummyjson.com/products/category/smartphones')
+    fetch('https://dummyjson.com/products')
       .then(res => res.json())
       .then(({ products }) => {
         setitems(products);
@@ -15,20 +22,11 @@ function App() {
         Alert.alert('Error', 'Unable data');
       });
   };
-
+  fetch('https://dummyjson.com/products/categories')
+  .then(res => res.json())
+  .then(console.log);
+              
   React.useEffect(fetchPosts, []);
-
-  const Post = ({ title, desc, img }: { title: any, desc: any, img: any }) => {
-    return (
-      <View style={styles.container}>
-        <Image source={{ uri: img }} style={styles.image} />
-        <View>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.desc}>{desc}</Text>
-        </View>      
-      </View>
-    );
-  };
 
   return (
     <View>
