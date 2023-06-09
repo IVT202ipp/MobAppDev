@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-export const Post = ({ product }) => {
+export const Post = ({ product } : { product:any }) => {
     return (
       <View style={styles.container}>
         <Image source={{ uri: product.thumbnail }} style={styles.image} />
