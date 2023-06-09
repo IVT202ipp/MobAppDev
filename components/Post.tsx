@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-export const Post = ({ title, desc, img } : { title: any, desc: any, img: any }) => {
+export const Post = ({ product }) => {
     return (
       <View style={styles.container}>
-        <Image source={{ uri: img }} style={styles.image} />
+        <Image source={{ uri: product.thumbnail }} style={styles.image} />
         <View>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.desc}>{desc}</Text>
+          <Text style={styles.title}>{product.title}</Text>
+          <Text style={styles.desc}>{product.description}</Text>
         </View>      
       </View>
     );
