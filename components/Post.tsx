@@ -1,15 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-export const Post = ({ product } : { product:any }) => {
+export const Post = ({ product, onPress } : { product:any, onPress:any }) => {
+    const PostPress = () => {
+      onPress(product)
+    }
+
     return (
-      <View style={styles.container}>
-        <Image source={{ uri: product.thumbnail }} style={styles.image} />
-        <View>
-          <Text style={styles.title}>{product.title}</Text>
-          <Text style={styles.desc}>{product.description}</Text>
-        </View>      
-      </View>
+        <TouchableOpacity onPress={PostPress}>
+            <View style={styles.container}>
+                <Image source={{ uri: product.thumbnail }} style={styles.image} />
+                <View>
+                <Text style={styles.title}>{product.title}</Text>
+                <Text style={styles.desc}>{product.description}</Text>
+                </View>      
+            </View>
+        </TouchableOpacity>   
     );
   };
 

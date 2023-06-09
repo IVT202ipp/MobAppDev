@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
-export const SinglePost = ({ product } : { product:any }) => {
+export const SinglePost = ({ product, onBackPress } : { product:any, onBackPress:any }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{product.title}</Text>
@@ -12,6 +12,7 @@ export const SinglePost = ({ product } : { product:any }) => {
       <Text style={styles.info}>Stock: {product.stock}</Text>
       <Text style={styles.info}>Brand: {product.brand}</Text>
       <Text style={styles.info}>Category: {product.category}</Text>
+      <Button title="Back" onPress={onBackPress} />
     </View>
   );
 };
