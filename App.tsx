@@ -5,7 +5,7 @@ import { SinglePost } from './components/SinglePost';
 
 function App() {
   const [items, setItems] = React.useState([]);
-  const [selectedProduct, setSelectedProduct] = React.useState(null);
+  const [selectedProduct, setSelectedProduct] = React.useState('');
 
   const fetchPosts = () => {
     fetch('https://dummyjson.com/products')
@@ -21,12 +21,12 @@ function App() {
 
   React.useEffect(fetchPosts, []);
 
-  const PostPress = (product) => {
+  const PostPress = (product: string) => {
     setSelectedProduct(product);
   };
 
   const BackPress = () => {
-    setSelectedProduct(null);
+    setSelectedProduct('');
   };
 
   return (

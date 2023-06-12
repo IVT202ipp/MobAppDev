@@ -1,10 +1,26 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button, FlatList, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Button, FlatList, Image, TouchableOpacity } from 'react-native';
 
 export const SinglePost = ({ product, onBackPress }: { product: any, onBackPress: any }) => {
+  const [selectedImage, setSelectedImage] = useState('');
 
   const renderImage = ({ item }: { item: string }) => {
-    return <Image source={{ uri: item }} style={styles.image} />;
+    return (
+      <TouchableOpacity onPress={() => ImagePress(item)}>
+        <Image
+          source={{ uri: item }}
+          style={[styles.image, item === selectedImage && styles.selectedImage]}
+        />
+      </TouchableOpacity>
+    );
+  };
+
+  const ImagePress = (item: string) => {
+    if (item === selectedImage) {
+      setSelectedImage('');
+    } else {
+      setSelectedImage(item);
+    }
   };
 
   return (
@@ -37,7 +53,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   desc: {
-    marginTop: 10,
+    fontSize: 15,
+    justifyContent: 'center',
   },
   info: {
     marginTop: 5,
@@ -46,5 +63,9 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginRight: 12,
+  },
+  selectedImage: {
+    width: 300,
+    height: 300,
   },
 });
