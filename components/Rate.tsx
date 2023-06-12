@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 
-const Rate = ({ Rating }) => {
+const Rate = ({ Rating } : { Rating:any }) => {
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
