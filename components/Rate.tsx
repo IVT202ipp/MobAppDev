@@ -4,7 +4,6 @@ import { View, Image } from 'react-native';
 const Rate = ({ Rating } : { Rating:any }) => {
     const renderStars = () => {
     const stars = [];
-    if (Rating-Math.floor(Rating) >= 0.8) Rating = 5;
     for (let i = 1; i <= 5; i++) {
         
         const starColor = i <= Rating ? 'yellow' : 'gray';

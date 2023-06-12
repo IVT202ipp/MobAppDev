@@ -34,15 +34,14 @@ export const SinglePost = ({ product, onBackPress }: { product: any, onBackPress
       />
       <Text style={styles.info}>Rating: {product.rating}</Text>
       <Rate Rating={product.rating} />
-      <Text style={styles.price}>{product.price}$</Text>
+      <Text style={styles.info}>Price: {product.price}$</Text>
       <Text style={styles.title}>{product.title}</Text>
-      <Text style={styles.desc}>{product.description}</Text>
-      
+      <Text style={styles.desc}>{product.description}</Text>      
+      <Text style={styles.title}>Details</Text>
       <Text style={styles.info}>Discount: {product.discountPercentage}%</Text>
-      
       <Text style={styles.info}>Stock: {product.stock}</Text>
       <Text style={styles.info}>Brand: {product.brand}</Text>
-      <Text style={styles.info}>Category: {product.category}</Text>   
+      <Text style={styles.info}>Category: {product.category}</Text>    
       <Button title="Back" onPress={onBackPress} />
     </View>
   );
@@ -51,20 +50,23 @@ export const SinglePost = ({ product, onBackPress }: { product: any, onBackPress
 const styles = StyleSheet.create({
   container: {
     padding: 15,
+    
+  },
+  details: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   title: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   desc: {
-    fontSize: 15,
+    fontSize: 17,
     justifyContent: 'center',
   },
   info: {
+    fontSize: 18,
     marginTop: 5,
-  },
-  price: {
-    fontSize: 20,
   },
   image: {
     width: 100,
