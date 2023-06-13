@@ -2,6 +2,6 @@ import React from 'react';
 import { Navigation } from './components/Navigation';
 
 function App() {
-  //<Navigation />
+  return <Navigation />;
 }
 export default App;
