@@ -1,13 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-export const Post = ({ product, onPress } : { product:any, onPress:any }) => {
-  const PostPress = () => {
-    onPress(product)
-  }
+export const Post = ({ product }) => {
 
   return (
-    <TouchableOpacity onPress={PostPress}>
       <View style={styles.container}>
         <Image source={{ uri: product.thumbnail }} style={styles.image} />
         <View>
@@ -15,7 +11,6 @@ export const Post = ({ product, onPress } : { product:any, onPress:any }) => {
         <Text style={styles.desc}>{product.description}</Text>
         </View>      
       </View>
-    </TouchableOpacity>   
   );
 };
 

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, FlatList, Image, TouchableOpacity } from 'react-native';
 import Rate from './Rate';
 
-export const SinglePost = ({ product, onBackPress }: { product: any, onBackPress: any }) => {
+export const SinglePost = ({ route }) => {
   const [selectedImage, setSelectedImage] = useState('');
-
+  const { product } = route.params;
+  
   const renderImage = ({ item }: { item: string }) => {
     return (
       <TouchableOpacity onPress={() => ImagePress(item)}>
@@ -42,7 +43,6 @@ export const SinglePost = ({ product, onBackPress }: { product: any, onBackPress
       <Text style={styles.info}>Stock: {product.stock}</Text>
       <Text style={styles.info}>Brand: {product.brand}</Text>
       <Text style={styles.info}>Category: {product.category}</Text>    
-      <Button title="Back" onPress={onBackPress} />
     </View>
   );
 };
