@@ -25,8 +25,7 @@ return (
         <FlatList
         data={items}
         renderItem={({ item }) => 
-        <TouchableOpacity onPress={() => navigation.navigate('productpage', 
-        {id: item.id})}>
+        <TouchableOpacity onPress={() => navigation.navigate('SinglePost', { item })}>
             <Post product = {item}/>
         </TouchableOpacity>
         }

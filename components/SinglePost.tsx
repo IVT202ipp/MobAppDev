@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Button, FlatList, Image, TouchableOpacity } from 'react-native';
 import Rate from './Rate';
 
-export const SinglePost = ({ route }) => {
-  const [selectedImage, setSelectedImage] = useState('');
-  const { product } = route.params;
-  
-  const renderImage = ({ item }: { item: string }) => {
+export const SinglePost = ({ navigation, route }) => {
+  const [selectedImage, setSelectedImage] = React.useState('');
+  const { item } = route.params;
+
+  const renderImage = ({ item }) => {
     return (
       <TouchableOpacity onPress={() => ImagePress(item)}>
         <Image
@@ -17,7 +17,7 @@ export const SinglePost = ({ route }) => {
     );
   };
 
-  const ImagePress = (item: string) => {
+  const ImagePress = (item) => {
     if (item === selectedImage) {
       setSelectedImage('');
     } else {
@@ -25,24 +25,29 @@ export const SinglePost = ({ route }) => {
     }
   };
 
+  const goBack = () => {
+    navigation.goBack(); // Navigate back to the previous screen
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={product.images}
+        data={item.images}
         renderItem={renderImage}
         keyExtractor={(item, index) => index.toString()}
         horizontal
       />
-      <Text style={styles.info}>Rating: {product.rating}</Text>
-      <Rate Rating={product.rating} />
-      <Text style={styles.info}>Price: {product.price}$</Text>
-      <Text style={styles.title}>{product.title}</Text>
-      <Text style={styles.desc}>{product.description}</Text>      
+      <Text style={styles.info}>Rating: {item.rating}</Text>
+      <Rate Rating={item.rating} />
+      <Text style={styles.info}>Price: {item.price}$</Text>
+      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.desc}>{item.description}</Text>
       <Text style={styles.title}>Details</Text>
-      <Text style={styles.info}>Discount: {product.discountPercentage}%</Text>
-      <Text style={styles.info}>Stock: {product.stock}</Text>
-      <Text style={styles.info}>Brand: {product.brand}</Text>
-      <Text style={styles.info}>Category: {product.category}</Text>    
+      <Text style={styles.info}>Discount: {item.discountPercentage}%</Text>
+      <Text style={styles.info}>Stock: {item.stock}</Text>
+      <Text style={styles.info}>Brand: {item.brand}</Text>
+      <Text style={styles.info}>Category: {item.category}</Text>
+      <Button title="Back" onPress={goBack} />
     </View>
   );
 };
@@ -50,7 +55,6 @@ export const SinglePost = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 15,
-    
   },
   details: {
     fontSize: 20,
