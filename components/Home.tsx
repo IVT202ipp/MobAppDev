@@ -26,7 +26,7 @@ return (
         data={items}
         renderItem={({ item }) => 
         <TouchableOpacity onPress={() => navigation.navigate('SinglePost', { item })}>
-            <Post product = {item}/>
+            <Post product={item} />
         </TouchableOpacity>
         }
         />
