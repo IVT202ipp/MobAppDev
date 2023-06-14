@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-export const Cart = () => {
+export const Profile = () => {
   return (
     <View>
     </View>
