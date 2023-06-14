@@ -1,10 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, FlatList, Image, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { addToCart } from './CartReducer';
+import { View, Text, StyleSheet, Button, FlatList, Image, TouchableOpacity, Alert } from 'react-native';
 import Rate from './Rate';
 
 export const SinglePost = ({ navigation, route }) => {
   const [selectedImage, setSelectedImage] = React.useState('');
   const { item } = route.params;
+
+  const dispatch = useDispatch();
+
+  const handleBuy = () => {
+    dispatch(addToCart(item));
+    Alert.alert('Cart', 'Product added to cart');
+  };
 
   const renderImage = ({ item }) => {
     return (
@@ -26,7 +35,7 @@ export const SinglePost = ({ navigation, route }) => {
   };
 
   const goBack = () => {
-    navigation.goBack(); // Navigate back to the previous screen
+    navigation.goBack();
   };
 
   return (
@@ -47,6 +56,7 @@ export const SinglePost = ({ navigation, route }) => {
       <Text style={styles.info}>Stock: {item.stock}</Text>
       <Text style={styles.info}>Brand: {item.brand}</Text>
       <Text style={styles.info}>Category: {item.category}</Text>
+      <Button title="Add to Cart" onPress={handleBuy} />
       <Button title="Back" onPress={goBack} />
     </View>
   );

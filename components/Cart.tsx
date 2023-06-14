@@ -1,9 +1,34 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Button } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromCart } from './CartReducer';
+import { Post } from './Post';
 
-export const Cart = () => {
+export const Cart = ({navigation}) => {
+  const cartItems = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const handleDelete = (productId) => {
+    dispatch(removeFromCart(productId));
+  };
+
   return (
     <View>
+      <FlatList
+        data={cartItems}
+        renderItem={({ item }) => (
+          <View>
+            <TouchableOpacity onPress={() => navigation.navigate('SinglePost', { item })}>
+              <Post product={item} />
+            </TouchableOpacity>
+            <Button
+              title="Remove"
+              onPress={() => handleDelete(item.id)}
+            />
+          </View>
+        )}
+        keyExtractor={(item) => item.id.toString()}
+      />
     </View>
   );
 };
