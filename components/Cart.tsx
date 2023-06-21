@@ -14,6 +14,7 @@ export const Cart = ({navigation}) => {
 
   return (
     <View>
+      <Text>{cartItems.length} products in cart</Text>
       <FlatList
         data={cartItems}
         renderItem={({ item }) => (
