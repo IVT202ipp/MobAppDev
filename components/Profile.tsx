@@ -1,33 +1,37 @@
-import React, { useEffect, useRef } from 'react';
-import { Animated, StyleSheet } from 'react-native';
+import React from 'react';
+import { StyleSheet, Animated } from 'react-native';
 
 export const Profile = () => {
-  const backgroundColor = useRef(new Animated.Value(0)).current;
+  const colorAnimation = new Animated.Value(0);
 
-  useEffect(() => {
+  React.useEffect(() => {
+    startColorAnimation();
+  }, []);
+
+  const startColorAnimation = () => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(backgroundColor, {
+        Animated.timing(colorAnimation, {
           toValue: 1,
-          duration: 1000,
+          duration: 1500,
           useNativeDriver: false,
         }),
-        Animated.timing(backgroundColor, {
+        Animated.timing(colorAnimation, {
           toValue: 0,
-          duration: 1000,
+          duration: 1500,
           useNativeDriver: false,
         }),
       ])
     ).start();
-  }, []);
+  };
 
-  const bg = backgroundColor.interpolate({
+  const backgroundColor = colorAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: ['red', 'blue'],
   });
 
   return (
-      <Animated.View style={[styles.container, { backgroundColor: bg }]} />
+    <Animated.View style={[styles.container, { backgroundColor }]}/>
   );
 };
 
