@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from './CartReducer';
 import { View, Text, StyleSheet, Button, FlatList, Image, TouchableOpacity, Alert } from 'react-native';
 import Rate from './Rate';
-import { FSImage } from './FSImage';
 
 export const SinglePost = ({ navigation, route }) => {
+  const [selectedImage, setSelectedImage] = React.useState('');
   const { item } = route.params;
+
   const dispatch = useDispatch();
-  const [selectedImage, setSelectedImage] = useState('');
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleBuy = () => {
     dispatch(addToCart(item));
@@ -18,19 +17,21 @@ export const SinglePost = ({ navigation, route }) => {
 
   const renderImage = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => handleImagePress(item)}>
-        <Image source={{ uri: item }} style={styles.image} />
+      <TouchableOpacity onPress={() => ImagePress(item)}>
+        <Image
+          source={{ uri: item }}
+          style={[styles.image, item === selectedImage && styles.selectedImage]}
+        />
       </TouchableOpacity>
     );
   };
 
-  const handleImagePress = (item) => {
-    setSelectedImage(item);
-    setIsModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setIsModalVisible(false);
+  const ImagePress = (item) => {
+    if (item === selectedImage) {
+      setSelectedImage('');
+    } else {
+      setSelectedImage(item);
+    }
   };
 
   const goBack = () => {
@@ -45,7 +46,6 @@ export const SinglePost = ({ navigation, route }) => {
         keyExtractor={(item, index) => index.toString()}
         horizontal
       />
-      <FSImage isVisible={isModalVisible} imageUri={selectedImage} closeModal={closeModal} />
       <Text style={styles.info}>Rating: {item.rating}</Text>
       <Rate Rating={item.rating} />
       <Text style={styles.info}>Price: {item.price}$</Text>
@@ -86,5 +86,9 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginRight: 12,
+  },
+  selectedImage: {
+    width: 300,
+    height: 300,
   },
 });

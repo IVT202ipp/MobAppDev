@@ -12,13 +12,13 @@ export const Profile = () => {
     Animated.loop(
       Animated.sequence([
         Animated.timing(colorAnimation, {
-          toValue: 2,
-          duration: 3000,
+          toValue: 1,
+          duration: 1500,
           useNativeDriver: false,
         }),
         Animated.timing(colorAnimation, {
           toValue: 0,
-          duration: 3000,
+          duration: 1500,
           useNativeDriver: false,
         }),
       ])
@@ -26,8 +26,8 @@ export const Profile = () => {
   };
 
   const backgroundColor = colorAnimation.interpolate({
-    inputRange: [0, 1, 2],
-    outputRange: ['red', 'green', 'blue'],
+    inputRange: [0, 1],
+    outputRange: ['red', 'blue'],
   });
 
   return (
@@ -39,5 +39,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });
