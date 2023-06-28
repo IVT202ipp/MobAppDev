@@ -1,41 +1,30 @@
 import React from 'react';
-import { View, Alert, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
+import { View, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '../Redux/ProductsReducer';
 import { Post } from '../Post';
 import { Loading } from '../Loading';
 
 
 export const Home = ({ navigation } : {navigation: any}) => {
-const [IsLoading, setIsLoading] = React.useState(true); 
-const [items, setItems] = React.useState([]);
+  const dispatch = useDispatch<any>();
+  const  products  = useSelector((state: any) => state.products.Products)
+  const  isLoading  = useSelector((state: any) => state.products.isLoading)
 
-const fetchPosts = () => {
-    setIsLoading(true);
-    fetch('https://dummyjson.com/products')
-    .then((res) => res.json())
-    .then(({ products }) => {
-        setItems(products);
-    })
-    .catch((err) => {
-        console.log(err);
-        Alert.alert('Error', 'Unable data');
-    }).finally(() => {
-        setIsLoading(false);
-    });
-};
+  React.useEffect(() => {
+    dispatch(fetchProducts())
+  }, [])
 
-React.useEffect(fetchPosts, []);
+  if (isLoading) {
+    return (
+      <Loading />
+    );
+  }
 
-if (IsLoading) {
-    return <Loading />;
-}
-
-
-
-return (
+  return (
     <View>
         <FlatList
-        refreshControl={<RefreshControl refreshing={IsLoading} onRefresh = {fetchPosts} />}
-        data={items}
+        data={products}
         renderItem={({ item }) => 
         <TouchableOpacity onPress={() => navigation.navigate('SinglePost', { item })}>
             <Post product={item} />
@@ -44,4 +33,4 @@ return (
         />
     </View>
 );
-}
+};

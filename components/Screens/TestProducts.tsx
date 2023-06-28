@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, TouchableOpacity } from 'react-native';
+import { View, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../Redux/ProductsReducer';
 import { Post } from '../Post';
@@ -8,10 +8,8 @@ import { Loading } from '../Loading';
 
 export const TestProducts = ({ navigation } : {navigation: any}) => {
   const dispatch = useDispatch<any>();
-  const products = useSelector((state: any) => state.products);
-  const isLoading = useSelector((state: any) => state.loading);
-
-  console.log(products);
+  const  products  = useSelector((state: any) => state.products.Products)
+  const  isLoading  = useSelector((state: any) => state.products.isLoading)
 
   React.useEffect(() => {
     dispatch(fetchProducts())
@@ -26,7 +24,7 @@ export const TestProducts = ({ navigation } : {navigation: any}) => {
   return (
     <View>
         <FlatList
-        data={products}
+        data={products.slice( 0, 10 )}
         renderItem={({ item }) => 
         <TouchableOpacity onPress={() => navigation.navigate('SinglePost', { item })}>
             <Post product={item} />
