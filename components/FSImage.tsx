@@ -1,36 +1,50 @@
-import React from 'react';
-import { Modal, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { Modal, TouchableOpacity, Image, StyleSheet, View, Dimensions } from 'react-native';
 import { PinchGestureHandler, State } from 'react-native-gesture-handler';
-import Animated, { useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
-
-const { width, height } = Dimensions.get('window');
 
 export const FSImage = ({ isVisible, imageUri, closeModal }) => {
-  const scale = useSharedValue(1);
-  const pinchHandler = useAnimatedGestureHandler({
-    onActive: (event) => {
-      scale.value = event.scale;
-    },
-    onEnd: () => {
-      scale.value = withSpring(1);
-    },
-  });
+  const [baseScale, setBaseScale] = useState(1);
+  const [pinchScale, setPinchScale] = useState(1);
+  const [lastScale, setLastScale] = useState(1);
+  const [isZoomed, setIsZoomed] = useState(false);
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: scale.value }],
-    };
-  });
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
+
+  const onPinchGestureEvent = (event) => {
+    setPinchScale(event.nativeEvent.scale);
+  };
+
+  const onPinchHandlerStateChange = (event) => {
+    if (event.nativeEvent.oldState === State.ACTIVE) {
+      const scale = lastScale * pinchScale;
+      setLastScale(scale);
+      setBaseScale(scale);
+      setPinchScale(1);
+    }
+  };
+
+  const toggleZoom = () => {
+    setIsZoomed((prevZoomed) => !prevZoomed);
+  };
+
+  const imageStyle = {
+    width: windowWidth,
+    height: windowHeight,
+    transform: [{ scale: baseScale * pinchScale }],
+  };
 
   return (
     <Modal visible={isVisible} onRequestClose={closeModal}>
       <TouchableOpacity style={styles.modalContainer} onPress={closeModal}>
-        <PinchGestureHandler onGestureEvent={pinchHandler}>
-          <Animated.Image
-            source={{ uri: imageUri }}
-            style={[styles.fullscreenImage, animatedStyle]}
-            resizeMode="contain"
-          />
+        <PinchGestureHandler
+          onGestureEvent={onPinchGestureEvent}
+          onHandlerStateChange={onPinchHandlerStateChange}
+          enabled={isZoomed}
+        >
+          <View style={styles.container}>
+            <Image source={{ uri: imageUri }} style={imageStyle} resizeMode="contain" />
+          </View>
         </PinchGestureHandler>
       </TouchableOpacity>
     </Modal>
@@ -44,8 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  fullscreenImage: {
-    width,
-    height,
+  container: {
+    flex: 1,
   },
 });

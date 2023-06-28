@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addToCart } from './CartReducer';
+import { addToCart } from '../Redux/CartReducer';
 import { View, Text, StyleSheet, Button, FlatList, Image, TouchableOpacity, Alert } from 'react-native';
-import Rate from './Rate';
-import { FSImage } from './FSImage';
+import Rate from '../Rate';
+import { FSImage } from '../FSImage';
+
 
 export const SinglePost = ({ navigation, route }) => {
   const { item } = route.params;

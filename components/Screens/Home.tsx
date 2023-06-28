@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Alert, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
-import { Post } from './Post';
-import { Loading } from './Loading';
+import { Post } from '../Post';
+import { Loading } from '../Loading';
 
 
-export const Home = ({ navigation }) => {
+export const Home = ({ navigation } : {navigation: any}) => {
 const [IsLoading, setIsLoading] = React.useState(true); 
 const [items, setItems] = React.useState([]);
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart } from './CartReducer';
-import { Post } from './Post';
+import { removeFromCart } from '../Redux/CartReducer';
+import { Post } from '../Post';
 
 export const Cart = ({navigation}) => {
   const cartItems = useSelector((state) => state.cart);
