@@ -11,6 +11,8 @@ export const TestProducts = ({ navigation } : {navigation: any}) => {
   const products = useSelector((state: any) => state.products);
   const isLoading = useSelector((state: any) => state.loading);
 
+  console.log(products);
+
   React.useEffect(() => {
     dispatch(fetchProducts())
   }, [])

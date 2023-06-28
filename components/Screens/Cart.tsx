@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '../Redux/CartReducer';
 import { Post } from '../Post';
 
-export const Cart = ({navigation}) => {
-  const cartItems = useSelector((state) => state.cart);
+export const Cart = ({ navigation } : {navigation: any}) => {
+  const cartItems = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
 
-  const handleDelete = (productId) => {
+  const handleDelete = (productId: any) => {
     dispatch(removeFromCart(productId));
   };
 
