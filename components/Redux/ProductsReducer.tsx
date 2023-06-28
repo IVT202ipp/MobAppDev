@@ -9,10 +9,16 @@ const initialState = {
 export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
     async () => {
-      const res = await axios('https://dummyjson.com/products')
-      const data = await res.data.products
-      return data
+      try  {
+        const res = await axios('https://dummyjson.com/products')
+        const data = await res.data.products
+        return data
+      } catch (error) {
+        throw new Error('Unable data');
+      }
+      
     }
+    
 )
 
 const productSlice = createSlice({

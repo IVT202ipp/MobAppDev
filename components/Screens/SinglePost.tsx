@@ -6,7 +6,7 @@ import Rate from '../Rate';
 import { FSImage } from '../FSImage';
 
 
-export const SinglePost = ({ navigation, route }) => {
+export const SinglePost = ({ navigation, route } : { navigation : any, route : any }) => {
   const { item } = route.params;
   const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState('');
@@ -17,7 +17,7 @@ export const SinglePost = ({ navigation, route }) => {
     Alert.alert('Cart', 'Product added to cart');
   };
 
-  const renderImage = ({ item }) => {
+  const renderImage = ({ item } : { item : any }) => {
     return (
       <TouchableOpacity onPress={() => handleImagePress(item)}>
         <Image source={{ uri: item }} style={styles.image} />
@@ -25,7 +25,7 @@ export const SinglePost = ({ navigation, route }) => {
     );
   };
 
-  const handleImagePress = (item) => {
+  const handleImagePress = (item : any) => {
     setSelectedImage(item);
     setIsModalVisible(true);
   };
