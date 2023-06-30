@@ -1,10 +1,9 @@
-import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios'
 
 const initialState = {
     Products: [] as any[],
     isLoading: true,
-    favoriteImages: [] as any[],
 }
 
 export const fetchProducts = createAsyncThunk(
@@ -21,13 +20,8 @@ export const fetchProducts = createAsyncThunk(
     }
     
 )
-export const markAsFavorite = createAction('products/markAsFavorite', (itemId: string) => {
-  return {
-    payload: itemId,
-  };
-});
 
-const imageSlice = createSlice({
+const productSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {},
@@ -42,21 +36,8 @@ const imageSlice = createSlice({
         })
         .addCase(fetchProducts.rejected, (state) => {
           state.isLoading = false;
-        })
-        .addCase(markAsFavorite, (state, action) => {
-          const itemId = action.payload;
-          const updatedProducts = state.Products.map((item) => {
-            if (item.id === itemId) {
-              return {
-                ...item,
-                isFavorite: !item.isFavorite,
-              };
-            }
-            return item;
-          });
-          state.Products = updatedProducts;
         });
     },
   });
   
-  export default imageSlice.reducer;
+  export default productSlice.reducer;
