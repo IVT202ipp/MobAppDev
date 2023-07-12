@@ -7,8 +7,9 @@ export const Post = ({ product } : {product:any}) => {
       <View style={styles.container}>
         <Image source={{ uri: product.thumbnail }} style={styles.image} />
         <View>
-        <Text style={styles.title}>{product.title}</Text>
+        <Text style={styles.title}>{product.title}</Text>      
         <Text style={styles.desc}>{product.description}</Text>
+        <Text style={styles.price}>{product.price}$</Text>
         </View>      
       </View>
   );
@@ -35,5 +36,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 250,
   },
+  price: {
+    fontWeight: 'bold',
+  }
   
 });
